@@ -9,7 +9,6 @@ module.exports = withModuleFederationPlugin({
   exposes: {
     './payments': './src/app/app.ts',
     './payments_routes': './src/app/app.routes.ts',
-
   },
 
   remotes: {
