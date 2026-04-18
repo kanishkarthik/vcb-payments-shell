@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { TranslatePipe } from '@vcb/shared-libs';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet, RouterLink, TranslatePipe],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

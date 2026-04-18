@@ -1,7 +1,8 @@
-<h1>Welcome MFE Payments Shell Application</h1>
-
-<a routerLink="bkt">BKT</a> | <a routerLink="dft">DFT</a> | <a routerLink="ops">Payment Management</a>
-<br />
+<nav>
+  <a routerLink="bkt">{{ 'payments.nav.bkt' | translate }}</a> |
+  <a routerLink="dft">{{ 'payments.nav.dft' | translate }}</a> |
+  <a routerLink="ops">{{ 'payments.nav.ops' | translate }}</a>
+</nav>
 <div>
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </div>
