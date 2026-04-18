@@ -1,0 +1,136 @@
+<div class="payment-step3-container">
+  <div class="step-content">
+    <h2>{{ 'payment.step3.title' | translate }}</h2>
+
+    <div class="review-section">
+      <!-- Payment Summary -->
+      <div class="summary-card">
+        <h3>{{ 'payment.step3.paymentSummary' | translate }}</h3>
+
+        <div class="summary-row">
+          <span class="label">{{ 'payment.step3.fromAccount' | translate }}</span>
+          <span class="value">{{ paymentState?.step1?.selectedAccount?.accountNumber }}</span>
+        </div>
+
+        <div class="summary-row">
+          <span class="label">{{ 'payment.step3.accountHolder' | translate }}</span>
+          <span class="value">{{ paymentState?.step1?.selectedAccount?.accountHolderName }}</span>
+        </div>
+
+        <div class="summary-row">
+          <span class="label">{{ 'payment.step3.paymentMethod' | translate }}</span>
+          <span class="value">{{ getMethodLabel() }}</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Amount Details -->
+        <div class="summary-row">
+          <span class="label">{{ 'payment.step3.amount' | translate }}</span>
+          <span class="value amount">{{ getFormattedAmount(step2Data?.amount || 0) }}</span>
+        </div>
+
+        <div class="summary-row">
+          <span class="label">{{ 'payment.step3.fees' | translate }}</span>
+          <span class="value">{{ getFormattedAmount(calculateFees()) }}</span>
+        </div>
+
+        <div class="summary-row total">
+          <span class="label">{{ 'payment.step3.totalDebit' | translate }}</span>
+          <span class="value">{{ getFormattedAmount(calculateTotalDebit()) }}</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Additional Details based on method -->
+        @if (paymentState?.step1?.selectedPaymentMethod === PaymentMethodType.BKT) {
+          <div class="method-details">
+            <div class="summary-row">
+              <span class="label">{{ 'payment.step3.beneficiaryAccount' | translate }}</span>
+              <span class="value">{{ step2Data?.beneficiaryAccountNumber }}</span>
+            </div>
+            <div class="summary-row">
+              <span class="label">{{ 'payment.step3.beneficiaryName' | translate }}</span>
+              <span class="value">{{ step2Data?.beneficiaryName }}</span>
+            </div>
+          </div>
+        }
+
+        @if (paymentState?.step1?.selectedPaymentMethod === PaymentMethodType.DFT) {
+          <div class="method-details">
+            <div class="summary-row">
+              <span class="label">{{ 'payment.step3.beneficiary' | translate }}</span>
+              <span class="value">{{ step2Data?.beneficiaryPhoneOrEmail }}</span>
+            </div>
+          </div>
+        }
+
+        @if (paymentState?.step1?.selectedPaymentMethod === PaymentMethodType.OPS) {
+          <div class="method-details">
+            <div class="summary-row">
+              <span class="label">{{ 'payment.step3.batchReference' | translate }}</span>
+              <span class="value">{{ step2Data?.batchReference }}</span>
+            </div>
+            <div class="summary-row">
+              <span class="label">{{ 'payment.step3.recipientCount' | translate }}</span>
+              <span class="value">{{ step2Data?.recipientCount }}</span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Confirmation Checkboxes -->
+      <form [formGroup]="form" class="confirmation-section">
+        <div class="checkbox-group">
+          <input 
+            type="checkbox" 
+            id="confirmation"
+            formControlName="confirmationAccepted"
+            class="checkbox-input">
+          <label for="confirmation" class="checkbox-label">
+            {{ 'payment.step3.confirmDetails' | translate }}
+          </label>
+          @if (form.get('confirmationAccepted')?.invalid && form.get('confirmationAccepted')?.touched) {
+            <div class="error-message">
+              {{ 'payment.errors.confirmationRequired' | translate }}
+            </div>
+          }
+        </div>
+
+        <div class="checkbox-group">
+          <input 
+            type="checkbox" 
+            id="terms"
+            formControlName="termsAccepted"
+            class="checkbox-input">
+          <label for="terms" class="checkbox-label">
+            {{ 'payment.step3.acceptTerms' | translate }}
+          </label>
+          @if (form.get('termsAccepted')?.invalid && form.get('termsAccepted')?.touched) {
+            <div class="error-message">
+              {{ 'payment.errors.termsRequired' | translate }}
+            </div>
+          }
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="button-group">
+          <button type="button" class="btn btn-secondary" (click)="onBack()" [disabled]="isSubmitting">
+            ← {{ 'common.back' | translate }}
+          </button>
+          <button type="button" class="btn btn-danger" (click)="onCancel()" [disabled]="isSubmitting">
+            {{ 'common.cancel' | translate }}
+          </button>
+          <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="form.invalid || isSubmitting">
+            @if (!isSubmitting) {
+              <span>{{ 'payment.step3.submit' | translate }}</span>
+            }
+            @if (isSubmitting) {
+              <span>{{ 'common.processing' | translate }}...</span>
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="stepper-header">
+  <div class="stepper-container">
+    @for (step of steps; track step.number; let last = $last) {
+      <div class="stepper-item">
+        <!-- Step Circle -->
+        <div 
+          class="step-circle"
+          [class.active]="isStepActive(step.number)"
+          [class.completed]="isStepPassed(step.number)">
+          @if (!isStepPassed(step.number)) {
+            <span class="step-number">{{ step.number }}</span>
+          }
+          @if (isStepPassed(step.number)) {
+            <span class="checkmark">✓</span>
+          }
+        </div>
+
+        <!-- Step Label -->
+        <div class="step-label">
+          <span class="label-text">{{ step.label | translate }}</span>
+        </div>
+
+        <!-- Connector Line (not after last step) -->
+        @if (!last) {
+          <div 
+            class="connector-line"
+            [class.completed]="isStepPassed(step.number + 1)"></div>
+        }
+      </div>
+    }
+  </div>
+</div>

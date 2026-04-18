@@ -1,0 +1,92 @@
+{
+  "paymentMethod": "DFT",
+  "version": "1.0",
+  "uiConfig": {
+    "groups": [
+      {
+        "id": "paymentDetails",
+        "title": "Payment Details",
+        "panelType": "form",
+        "fields": [
+          {
+            "id": "tranRefNo",
+            "label": "Transaction Reference No",
+            "type": "text",
+            "validation": {
+              "required": true
+            }
+          },
+          {
+            "id": "valueDate",
+            "label": "Value Date",
+            "type": "date",
+            "validation": {
+              "required": true,
+              "format": "YYYY-MM-DD"
+            }
+          },
+          {
+            "id": "amount",
+            "label": "Amount",
+            "type": "number",
+            "validation": {
+              "required": true,
+              "min": 1
+            }
+          },
+          {
+            "id": "paymentDetails",
+            "label": "Payment Details",
+            "type": "textarea",
+            "validation": {
+              "required": false,
+              "maxLength": 200
+            }
+          }
+        ]
+      },
+      {
+        "id": "beneficiaryDetails",
+        "title": "Beneficiary Details",
+        "panelType": "form",
+        "fields": [
+          {
+            "id": "beneficiaryName",
+            "label": "Beneficiary Name",
+            "type": "text",
+            "validation": {
+              "required": true
+            }
+          },
+          {
+            "id": "beneficiaryAccountNo",
+            "label": "Beneficiary Account Number",
+            "type": "text",
+            "validation": {
+              "required": true,
+              "regex": "^[0-9]{10,18}$"
+            }
+          },
+          {
+            "id": "beneficiaryBank",
+            "label": "Beneficiary Bank",
+            "type": "dropdown",
+            "optionsSource": "domesticBankList",
+            "validation": {
+              "required": true
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "payloadMapping": {
+    "tranRefNo": "payment.tranRefNo",
+    "valueDate": "payment.valueDate",
+    "amount": "payment.amount",
+    "paymentDetails": "payment.details",
+    "beneficiaryName": "beneficiary.name",
+    "beneficiaryAccountNo": "beneficiary.accountNo",
+    "beneficiaryBank": "beneficiary.bank"
+  }
+}

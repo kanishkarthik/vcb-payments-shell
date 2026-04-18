@@ -1,0 +1,191 @@
+.payment-step3-container {
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 16px;
+
+  .step-content {
+    h2 {
+      margin-bottom: 16px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+    }
+  }
+
+  .review-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .summary-card {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 16px;
+    background-color: #fafafa;
+
+    h3 {
+      margin: 0 0 12px 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      font-size: 13px;
+
+      &.total {
+        padding: 8px 0;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        font-weight: 600;
+
+        .label {
+          font-weight: 600;
+        }
+
+        .value {
+          font-weight: 600;
+          color: #0066cc;
+          font-size: 14px;
+        }
+      }
+
+      .label {
+        color: #777;
+        font-weight: 400;
+      }
+
+      .value {
+        color: #333;
+        text-align: right;
+        font-weight: 500;
+
+        &.amount {
+          color: #0066cc;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .divider {
+      height: 1px;
+      background-color: #eee;
+      margin: 8px 0;
+    }
+
+    .method-details {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #eee;
+    }
+  }
+
+  .confirmation-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+
+      .checkbox-input {
+        margin-top: 3px;
+        cursor: pointer;
+        width: 15px;
+        height: 15px;
+        accent-color: #0066cc;
+        flex-shrink: 0;
+      }
+
+      .checkbox-label {
+        cursor: pointer;
+        margin: 0;
+        font-size: 13px;
+        color: #444;
+        line-height: 1.5;
+      }
+
+      .error-message {
+        width: 100%;
+        color: #d32f2f;
+        font-size: 11px;
+        margin-top: 2px;
+      }
+    }
+  }
+
+  .button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 16px;
+
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 200ms;
+      font-family: inherit;
+
+      &.btn-primary {
+        background-color: #0066cc;
+        color: white;
+
+        &:hover:not(:disabled) {
+          background-color: #0052a3;
+          box-shadow: 0 2px 6px rgba(0, 102, 204, 0.3);
+        }
+
+        &:disabled {
+          background-color: #ccc;
+          cursor: not-allowed;
+        }
+      }
+
+      &.btn-secondary {
+        background-color: #f0f0f0;
+        color: #333;
+
+        &:hover:not(:disabled) {
+          background-color: #e0e0e0;
+        }
+
+        &:disabled {
+          background-color: #f0f0f0;
+          color: #999;
+          cursor: not-allowed;
+        }
+      }
+
+      &.btn-danger {
+        background-color: #f5f5f5;
+        color: #d32f2f;
+        border: 1px solid #ddd;
+
+        &:hover:not(:disabled) {
+          background-color: #faf0f0;
+          border-color: #d32f2f;
+        }
+
+        &:disabled {
+          background-color: #f5f5f5;
+          color: #999;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}

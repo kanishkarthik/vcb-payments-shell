@@ -1,0 +1,64 @@
+<div class="payment-step1-container">
+  <div class="step-content">
+    <h2>{{ 'payments.step1.title' | translate }}</h2>
+    
+    <form [formGroup]="form" (ngSubmit)="onNext()">
+      <!-- Account Selection -->
+      <div class="form-group">
+        <label for="account">{{ 'payment.step1.selectAccount' | translate }}</label>
+        <select 
+          id="account" 
+          formControlName="selectedAccountId" 
+          class="form-control"
+          [disabled]="isLoading">
+          <option value="">{{ 'payment.step1.selectAccountPlaceholder' | translate }}</option>
+          @for (account of accounts; track account.id) {
+            <option [value]="account.id">
+              {{ account.accountNumber }} - {{ account.accountHolderName }} ({{ getFormattedBalance(account.balance) }})
+            </option>
+          }
+        </select>
+        @if (form.get('selectedAccountId')?.invalid && form.get('selectedAccountId')?.touched) {
+          <div class="error-message">
+            {{ 'payment.errors.accountRequired' | translate }}
+          </div>
+        }
+      </div>
+
+      <!-- Payment Method Selection -->
+      <div class="form-group">
+        <label>{{ 'payment.step1.selectPaymentMethod' | translate }}</label>
+        <div class="payment-methods">
+          @for (method of paymentMethods; track method) {
+            <div class="method-option">
+              <input 
+                type="radio" 
+                [id]="method" 
+                [value]="method" 
+                formControlName="selectedPaymentMethod"
+                class="radio-input">
+              <label [for]="method" class="radio-label">
+                {{ getPaymentMethodLabel(method) }}
+              </label>
+            </div>
+          }
+        </div>
+        @if (form.get('selectedPaymentMethod')?.invalid && form.get('selectedPaymentMethod')?.touched) {
+          <div class="error-message">
+            {{ 'payment.errors.methodRequired' | translate }}
+          </div>
+        }
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="button-group">
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">
+          {{ 'common.cancel' | translate }}
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || isLoading">
+          {{ 'common.next' | translate }} →
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

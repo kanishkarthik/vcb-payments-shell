@@ -2,9 +2,45 @@
   "payments": {
     "title": "Payments",
     "nav": {
+      "createPayment": "Create Payment",
       "bkt": "Bank Transfer",
       "dft": "Direct Fund Transfer",
       "ops": "Payment Management"
+    },
+    "stepper": {
+      "step1Label": "Step 1",
+      "step2Label": "Step 2",
+      "step3Label": "Step 3"
+    },
+    "step1": {
+      "title": "Step 1: Select Account & Payment Method",
+      "selectAccount": "Select Debit Account",
+      "selectAccountPlaceholder": "Choose an account...",
+      "selectPaymentMethod": "Select Payment Method"
+    },
+    "step3": {
+      "title": "Step 3: Review & Confirm Payment",
+      "paymentSummary": "Payment Summary",
+      "fromAccount": "From Account",
+      "accountHolder": "Account Holder",
+      "paymentMethod": "Payment Method",
+      "amount": "Amount",
+      "fees": "Fees",
+      "totalDebit": "Total Debit Amount",
+      "beneficiaryAccount": "Beneficiary Account",
+      "beneficiaryName": "Beneficiary Name",
+      "beneficiary": "Beneficiary",
+      "batchReference": "Batch Reference",
+      "recipientCount": "Number of Recipients",
+      "confirmDetails": "I confirm that the payment details are correct",
+      "acceptTerms": "I accept the terms and conditions",
+      "submit": "Submit Payment"
+    },
+    "errors": {
+      "accountRequired": "Please select a debit account",
+      "methodRequired": "Please select a payment method",
+      "confirmationRequired": "Please confirm the payment details",
+      "termsRequired": "Please accept the terms and conditions"
     },
     "common": {
       "amount": "Amount",
@@ -102,7 +138,8 @@
     "noResults": "No results found",
     "confirmDelete": "Are you sure you want to delete this?",
     "confirmAction": "Are you sure?",
-    "unexpectedError": "An unexpected error occurred"
+    "unexpectedError": "An unexpected error occurred",
+    "processing": "Processing"
   },
   "messages": {
     "success": "Operation completed successfully",

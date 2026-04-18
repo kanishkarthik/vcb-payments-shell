@@ -1,0 +1,97 @@
+{
+  "paymentMethod": "CrossBorder",
+  "version": "1.0",
+  "uiConfig": {
+    "groups": [
+      {
+        "id": "paymentDetails",
+        "title": "Payment Details",
+        "panelType": "form",
+        "fields": [
+          {
+            "id": "tranRefNo",
+            "label": "Transaction Reference No",
+            "type": "text",
+            "validation": { "required": true }
+          },
+          {
+            "id": "valueDate",
+            "label": "Value Date",
+            "type": "date",
+            "validation": { "required": true, "format": "YYYY-MM-DD" }
+          },
+          {
+            "id": "amount",
+            "label": "Amount",
+            "type": "number",
+            "validation": { "required": true, "min": 1 }
+          },
+          {
+            "id": "currency",
+            "label": "Currency",
+            "type": "dropdown",
+            "optionsSource": "currencyList",
+            "validation": { "required": true }
+          },
+          {
+            "id": "paymentPurpose",
+            "label": "Payment Purpose",
+            "type": "dropdown",
+            "optionsSource": "purposeCodes",
+            "validation": { "required": true }
+          }
+        ]
+      },
+      {
+        "id": "beneficiaryDetails",
+        "title": "Beneficiary Details",
+        "panelType": "form",
+        "fields": [
+          {
+            "id": "beneficiaryName",
+            "label": "Beneficiary Name",
+            "type": "text",
+            "validation": { "required": true }
+          },
+          {
+            "id": "beneficiaryAccountNo",
+            "label": "Beneficiary Account Number / IBAN",
+            "type": "text",
+            "validation": { "required": true }
+          },
+          {
+            "id": "beneficiaryBankSwift",
+            "label": "Beneficiary Bank SWIFT Code",
+            "type": "text",
+            "validation": { "required": true, "regex": "^[A-Z0-9]{8,11}$" }
+          },
+          {
+            "id": "beneficiaryCountry",
+            "label": "Beneficiary Country",
+            "type": "dropdown",
+            "optionsSource": "countryList",
+            "validation": { "required": true }
+          },
+          {
+            "id": "beneficiaryAddress",
+            "label": "Beneficiary Address",
+            "type": "textarea",
+            "validation": { "required": true }
+          }
+        ]
+      }
+    ]
+  },
+  "payloadMapping": {
+    "tranRefNo": "payment.tranRefNo",
+    "valueDate": "payment.valueDate",
+    "amount": "payment.amount",
+    "currency": "payment.currency",
+    "paymentPurpose": "payment.purpose",
+    "beneficiaryName": "beneficiary.name",
+    "beneficiaryAccountNo": "beneficiary.accountNo",
+    "beneficiaryBankSwift": "beneficiary.bank.swift",
+    "beneficiaryCountry": "beneficiary.address.country",
+    "beneficiaryAddress": "beneficiary.address.full"
+  }
+}

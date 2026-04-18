@@ -6,6 +6,41 @@
       "dft": "Chuyển tiền trực tiếp",
       "ops": "Quản lý thanh toán"
     },
+    "stepper": {
+      "step1Label": "Tài khoản & Phương thức",
+      "step2Label": "Chi tiết thanh toán",
+      "step3Label": "Xem lại & Gửi"
+    },
+    "step1": {
+      "title": "Bước 1: Chọn tài khoản & phương thức thanh toán",
+      "selectAccount": "Chọn tài khoản ghi nợ",
+      "selectAccountPlaceholder": "Chọn một tài khoản...",
+      "selectPaymentMethod": "Chọn phương thức thanh toán"
+    },
+    "step3": {
+      "title": "Bước 3: Xem lại & Xác nhận thanh toán",
+      "paymentSummary": "Tóm tắt thanh toán",
+      "fromAccount": "Từ tài khoản",
+      "accountHolder": "Chủ tài khoản",
+      "paymentMethod": "Phương thức thanh toán",
+      "amount": "Số tiền",
+      "fees": "Phí",
+      "totalDebit": "Tổng số tiền ghi nợ",
+      "beneficiaryAccount": "Tài khoản người thụ hưởng",
+      "beneficiaryName": "Tên người thụ hưởng",
+      "beneficiary": "Người thụ hưởng",
+      "batchReference": "Tham chiếu lô",
+      "recipientCount": "Số lượng người nhận",
+      "confirmDetails": "Tôi xác nhận rằng chi tiết thanh toán là chính xác",
+      "acceptTerms": "Tôi chấp nhận điều khoản và điều kiện",
+      "submit": "Gửi thanh toán"
+    },
+    "errors": {
+      "accountRequired": "Vui lòng chọn một tài khoản ghi nợ",
+      "methodRequired": "Vui lòng chọn một phương thức thanh toán",
+      "confirmationRequired": "Vui lòng xác nhận chi tiết thanh toán",
+      "termsRequired": "Vui lòng chấp nhận điều khoản và điều kiện"
+    },
     "common": {
       "amount": "Số tiền",
       "currency": "Tiền tệ",
@@ -102,7 +137,8 @@
     "noResults": "Không tìm thấy kết quả",
     "confirmDelete": "Bạn có chắc chắn muốn xóa mục này không?",
     "confirmAction": "Bạn có chắc chắn không?",
-    "unexpectedError": "Đã xảy ra lỗi không mong muốt"
+    "unexpectedError": "Đã xảy ra lỗi không mong muốt",
+    "processing": "Đang xử lý"
   },
   "messages": {
     "success": "Hoạt động hoàn thành thành công",

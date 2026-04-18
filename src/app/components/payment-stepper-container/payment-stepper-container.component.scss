@@ -1,0 +1,17 @@
+.payment-stepper-wrapper {
+  width: 100%;
+  min-height: calc(100vh - 64px);
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+
+  app-payment-stepper-header {
+    flex-shrink: 0;
+  }
+
+  .stepper-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+}
