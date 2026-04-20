@@ -1,9 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router, RouterModule } from '@angular/router';
 import { TranslatePipe } from '@vcb/shared-libs';
 import { PaymentStepperService, PaymentAccount, PaymentMethodType } from '@vcb/shared-libs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-payment-step1',
@@ -12,17 +13,29 @@ import { PaymentStepperService, PaymentAccount, PaymentMethodType } from '@vcb/s
   templateUrl: './payment-step1.component.html',
   styleUrl: './payment-step1.component.scss'
 })
-export class PaymentStep1Component implements OnInit {
+export class PaymentStep1Component implements OnInit, OnDestroy {
   private formBuilder = inject(FormBuilder);
   private paymentStepperService = inject(PaymentStepperService);
   private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
 
   form!: FormGroup;
   accounts: PaymentAccount[] = [];
   paymentMethods = Object.values(PaymentMethodType);
   isLoading = false;
+  private destroyRef = inject(DestroyRef);
+
 
   ngOnInit(): void {
+
+    this.router.events
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((event: any) => {
+        if (event?.['code'] === 0) {
+          this.paymentStepperService.resetStepper();
+        }
+      });
+    
     this.initializeForm();
     this.loadAccounts();
   }
@@ -85,5 +98,9 @@ export class PaymentStep1Component implements OnInit {
       style: 'currency',
       currency: 'USD'
     }).format(balance);
+  }
+
+  ngOnDestroy(): void {
+    
   }
 }

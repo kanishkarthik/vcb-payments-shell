@@ -20,15 +20,21 @@ export const PAYMENTS_ROUTES: Routes = [
             {
                 path: 'create-payment',
                 component: PaymentStepperContainerComponent,
+                data: {
+                    breadcrumb: {
+                        label: 'Create Payment', translationKey: 'breadcrumb.payments.create',
+                        url: '/payments/create-payment/step/1', navigationState: { reset: true }
+                    }
+                },
                 children: [
                     {
                         path: 'step/1',
-                        component: PaymentStep1Component
+                        component: PaymentStep1Component,
+                        data: { breadcrumb: { label: 'Step 1', translationKey: 'breadcrumb.payments.step1' } }
                     },
                     {
                         path: 'step/2/:paymentMethod',
                         loadComponent: () => {
-                            debugger;
                             const configService = inject(RuntimeConfigService);
 
                             const stepperService = inject(PaymentStepperService);
@@ -43,13 +49,15 @@ export const PAYMENTS_ROUTES: Routes = [
                                 const componentName = `PaymentStep2${paymentMethod.toUpperCase()}Component`;
                                 return m[componentName];
                             });
-                        }
+                        },
+                        data: { breadcrumb: { label: 'Step 2', translationKey: 'breadcrumb.payments.step2' } }
                     },
                     {
                         path: 'step/3',
-                        component: PaymentStep3Component
+                        component: PaymentStep3Component,
+                        data: { breadcrumb: { label: 'Step 3', translationKey: 'breadcrumb.payments.step3' } }
                     }
-                ]
+                ],
             },
             {
                 path: 'ops',
@@ -60,7 +68,8 @@ export const PAYMENTS_ROUTES: Routes = [
                         remoteEntry: `${configService.getRemoteUrl('ops')}/remoteEntry.js`,
                         exposedModule: './ops'
                     }).then(m => m.App);
-                }
+                },
+                data: { breadcrumb: { label: 'Operations', translationKey: 'breadcrumb.payments.ops' } }
             },
         ]
     }
