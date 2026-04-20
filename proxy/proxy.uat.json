@@ -1,0 +1,11 @@
+{
+  "/api": {
+    "target": "https://uat-api.vcb.internal",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "info",
+    "pathRewrite": {
+      "^/api": "/api"
+    }
+  }
+}

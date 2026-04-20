@@ -3,17 +3,24 @@ import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/ro
 import { provideHttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { PAYMENTS_ROUTES } from './app.routes';
-import { 
-  TranslationService, 
+import {
+  TranslationService,
   TRANSLATION_CONFIG,
   AuthenticationService,
   TokenService,
   ErrorHandlingService,
-  AuthInterceptor
+  AuthInterceptor,
+  RuntimeConfigService
 } from '@vcb/shared-libs';
 
-function initializeTranslations(): Promise<void> {
-  return inject(TranslationService).initialize();
+async function initializeApp(): Promise<void> {
+  const configService = inject(RuntimeConfigService);
+  const translationService = inject(TranslationService);
+  // Standalone mode: load this shell's own app-config.json (has bkt/dft/ops).
+  // When embedded in digital-shell this bootstrap never runs — the host resolver
+  // calls mergeConfig instead before activating any sub-routes.
+  await configService.load();
+  await translationService.initialize();
 }
 
 /**
@@ -30,20 +37,20 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(PAYMENTS_ROUTES, withEnabledBlockingInitialNavigation()),
     provideHttpClient(),
-
-    // Shared i18n library - uses absolute URL so it works standalone or as a remote
+    // Shared i18n library - reads baseUrl from runtime config (loaded before this is used)
     {
       provide: TRANSLATION_CONFIG,
-      useValue: {
-        baseUrl: 'http://localhost:4201/assets/i18n/',
+      useFactory: (configService: RuntimeConfigService) => ({
+        baseUrl: configService.get('i18nBaseUrl'),
         supportedLanguages: ['en', 'vi'],
         defaultLanguage: 'en',
         debug: false
-      }
+      }),
+      deps: [RuntimeConfigService]
     },
     TranslationService,
-    provideAppInitializer(() => initializeTranslations()),
-    
+    provideAppInitializer(() => initializeApp()),
+
     // Authentication & Security
     AuthenticationService,
     TokenService,
@@ -53,7 +60,7 @@ export const appConfig: ApplicationConfig = {
       useClass: AuthInterceptor,
       multi: true
     },
-    
+
     // App Initialization
     provideAppInitializer(() => initializeAuthentication())
   ]

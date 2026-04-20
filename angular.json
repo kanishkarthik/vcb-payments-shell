@@ -29,6 +29,11 @@
                 "output": "."
               },
               {
+                "glob": "app-config.json",
+                "input": "src/assets",
+                "output": "assets"
+              },
+              {
                 "glob": "**/*",
                 "input": "src/assets/i18n",
                 "output": "assets/i18n"
@@ -72,6 +77,14 @@
             "production": {
               "buildTarget": "vcb-payments-shell:build:production",
               "extraWebpackConfig": "webpack.prod.config.js"
+            },
+            "sit": {
+              "buildTarget": "vcb-payments-shell:build:development",
+              "proxyConfig": "proxy/proxy.sit.json"
+            },
+            "uat": {
+              "buildTarget": "vcb-payments-shell:build:development",
+              "proxyConfig": "proxy/proxy.uat.json"
             },
             "development": {
               "buildTarget": "vcb-payments-shell:build:development"

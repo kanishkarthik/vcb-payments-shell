@@ -4,6 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:sit": "ng serve --configuration=sit",
+    "start:uat": "ng serve --configuration=uat",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",

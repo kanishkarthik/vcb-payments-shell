@@ -1,10 +1,12 @@
 import { loadRemoteModule } from '@angular-architects/module-federation';
-import { Routes } from '@angular/router';
+import { ActivatedRoute, Routes } from '@angular/router';
+import { inject } from '@angular/core';
 import { App } from './app';
 import { PaymentStepperContainerComponent } from './components/payment-stepper-container/payment-stepper-container.component';
 import { PaymentStep1Component } from './components/payment-step1/payment-step1.component';
 import { PaymentStep3Component } from './components/payment-step3/payment-step3.component';
 import { PaymentLandingComponent } from './components/landing/payment.landing.component';
+import { PaymentStepperService, RuntimeConfigService } from '@vcb/shared-libs';
 
 export const PAYMENTS_ROUTES: Routes = [
     {
@@ -24,15 +26,23 @@ export const PAYMENTS_ROUTES: Routes = [
                         component: PaymentStep1Component
                     },
                     {
-                        path: 'step/2/bkt',
+                        path: 'step/2/:paymentMethod',
                         loadComponent: () => {
-                            // Dynamically load Step 2 from appropriate remote module
-                            // This will be determined by the payment method selected in Step 1
+                            debugger;
+                            const configService = inject(RuntimeConfigService);
+
+                            const stepperService = inject(PaymentStepperService);
+
+                            const paymentMethod = stepperService.getPaymentState().step1?.selectedPaymentMethod?.toLowerCase() || '';
+
                             return loadRemoteModule({
                                 type: 'module',
-                                remoteEntry: 'http://localhost:4202/remoteEntry.js',
-                                exposedModule: './bkt-payment-step2'
-                            }).then(m => m.PaymentStep2BKTComponent);
+                                remoteEntry: `${configService.getRemoteUrl(paymentMethod)}/remoteEntry.js`,
+                                exposedModule: `./${paymentMethod}-payment-step2`
+                            }).then(m => {
+                                const componentName = `PaymentStep2${paymentMethod.toUpperCase()}Component`;
+                                return m[componentName];
+                            });
                         }
                     },
                     {
@@ -42,28 +52,15 @@ export const PAYMENTS_ROUTES: Routes = [
                 ]
             },
             {
-                path: 'bkt',
-                loadComponent: () => loadRemoteModule({
-                    type: 'module',
-                    remoteEntry: 'http://localhost:4202/remoteEntry.js',
-                    exposedModule: './bkt'
-                }).then(m => m.App)
-            },
-            {
-                path: 'dft',
-                loadComponent: () => loadRemoteModule({
-                    type: 'module',
-                    remoteEntry: 'http://localhost:4203/remoteEntry.js',
-                    exposedModule: './dft'
-                }).then(m => m.App)
-            },
-            {
                 path: 'ops',
-                loadComponent: () => loadRemoteModule({
-                    type: 'module',
-                    remoteEntry: 'http://localhost:4205/remoteEntry.js',
-                    exposedModule: './ops'
-                }).then(m => m.App)
+                loadComponent: () => {
+                    const configService = inject(RuntimeConfigService);
+                    return loadRemoteModule({
+                        type: 'module',
+                        remoteEntry: `${configService.getRemoteUrl('ops')}/remoteEntry.js`,
+                        exposedModule: './ops'
+                    }).then(m => m.App);
+                }
             },
         ]
     }

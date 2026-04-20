@@ -1,0 +1,10 @@
+{
+  "apiBaseUrl": "/api",
+  "i18nBaseUrl": "http://localhost:4201/assets/i18n/",
+  "remotes": {
+    "bkt": "http://localhost:4202",
+    "dft": "http://localhost:4203",
+    "cbft": "http://localhost:4204",
+    "ops": "http://localhost:4205"
+  }
+}
