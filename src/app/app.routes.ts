@@ -1,12 +1,23 @@
 import { loadRemoteModule } from '@angular-architects/module-federation';
-import { ActivatedRoute, Routes } from '@angular/router';
+import { ActivatedRoute, ResolveFn, Routes } from '@angular/router';
 import { inject } from '@angular/core';
 import { App } from './app';
 import { PaymentStepperContainerComponent } from './components/payment-stepper-container/payment-stepper-container.component';
 import { PaymentStep1Component } from './components/payment-step1/payment-step1.component';
 import { PaymentStep3Component } from './components/payment-step3/payment-step3.component';
 import { PaymentLandingComponent } from './components/landing/payment.landing.component';
-import { PaymentStepperService, RuntimeConfigService } from '@vcb/shared-libs';
+import { PaymentStepperService, RuntimeConfigService, TranslationService } from '@vcb/shared-libs';
+
+const resolver = async (moduleName: string) => {
+    const configService = inject(RuntimeConfigService);
+    const baseUrl = configService.getRemoteUrl(moduleName);
+    const translationService = inject(TranslationService);    
+    return translationService.mergeRemoteTranslations(`${baseUrl}/assets/i18n/`);
+};
+/** Merges payment-ops i18n strings into the shared TranslationService. */
+const paymentsOpsResolver: ResolveFn<void> = async () => {
+    return resolver('ops');
+};
 
 export const PAYMENTS_ROUTES: Routes = [
     {
@@ -61,6 +72,7 @@ export const PAYMENTS_ROUTES: Routes = [
             },
             {
                 path: 'ops',
+                resolve: { translations: paymentsOpsResolver },
                 loadComponent: () => {
                     const configService = inject(RuntimeConfigService);
                     return loadRemoteModule({
