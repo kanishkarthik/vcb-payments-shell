@@ -5,13 +5,13 @@
     <form [formGroup]="form" (ngSubmit)="onNext()">
       <!-- Account Selection -->
       <div class="form-group">
-        <label for="account">{{ 'payment.step1.selectAccount' | translate }}</label>
+        <label for="account">{{ 'payments.step1.selectAccount' | translate }}</label>
         <select 
           id="account" 
           formControlName="selectedAccountId" 
           class="form-control"
           [disabled]="isLoading">
-          <option value="">{{ 'payment.step1.selectAccountPlaceholder' | translate }}</option>
+          <option value="">{{ 'payments.step1.selectAccountPlaceholder' | translate }}</option>
           @for (account of accounts; track account.id) {
             <option [value]="account.id">
               {{ account.accountNumber }} - {{ account.accountHolderName }} ({{ getFormattedBalance(account.balance) }})
@@ -27,7 +27,7 @@
 
       <!-- Payment Method Selection -->
       <div class="form-group">
-        <label>{{ 'payment.step1.selectPaymentMethod' | translate }}</label>
+        <label>{{ 'payments.step1.selectPaymentMethod' | translate }}</label>
         <div class="payment-methods">
           @for (method of paymentMethods; track method) {
             <div class="method-option">
