@@ -20,6 +20,8 @@
         "build": {
           "builder": "ngx-build-plus:browser",
           "options": {
+            "baseHref": "/corp-banking/payments/",
+            "deployUrl": "/corp-banking/payments/",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -30,8 +32,8 @@
               },
               {
                 "glob": "app-config.json",
-                "input": "src/assets",
-                "output": "assets"
+                "input": "src/assets/config",
+                "output": "assets/config"
               },
               {
                 "glob": "**/*",

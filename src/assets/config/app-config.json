@@ -1,6 +1,6 @@
 {
   "apiBaseUrl": "/api",
-  "i18nBaseUrl": "http://localhost:4201/assets/i18n/",
+  "i18nBaseUrl": "http://localhost:4201/corp-banking/payments/assets/i18n/",
   "remotes": {
     "bkt": "http://localhost:4202",
     "dft": "http://localhost:4203",

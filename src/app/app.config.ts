@@ -43,8 +43,8 @@ export const appConfig: ApplicationConfig = {
       provide: TRANSLATION_CONFIG,
       useFactory: (configService: RuntimeConfigService) => ({
         baseUrl: configService.get('i18nBaseUrl'),
-        supportedLanguages: ['en', 'vi'],
-        defaultLanguage: 'en',
+        supportedLanguages: ['en-US', 'vi-VN'],
+        defaultLanguage: 'en-US',
         debug: false
       }),
       deps: [RuntimeConfigService]

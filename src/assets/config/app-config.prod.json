@@ -1,0 +1,10 @@
+{
+  "apiBaseUrl": "/api",
+  "i18nBaseUrl": "/corp-banking/payments/assets/i18n/",
+  "remotes": {
+    "bkt": "/corp-banking/payments/bkt",
+    "dft": "/corp-banking/payments/dft",
+    "cbft": "/corp-banking/payments/cbft",
+    "ops": "/corp-banking/payments/ops"
+  }
+}

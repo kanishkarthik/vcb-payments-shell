@@ -7,6 +7,7 @@
     "start:sit": "ng serve --configuration=sit",
     "start:uat": "ng serve --configuration=uat",
     "build": "ng build",
+    "build:prod": "ng build --configuration production --output-path=C:/nginx/html/apps/vcb-payments-shell",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "run:all": "node node_modules/@angular-architects/module-federation/src/server/mf-dev-server.js"
